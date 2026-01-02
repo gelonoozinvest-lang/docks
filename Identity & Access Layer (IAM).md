@@ -68,6 +68,8 @@ Users / Employees / Clients
 
 3. Интеграция с Zitadel
 
+Подробные шаги по развертыванию и настройке Zitadel описаны в документе `Zitadel_Deployment.md`.
+
 3.1. Аутентификация
 
 - Все пользователи (сотрудники, админы, клиенты) проходят аутентификацию через Zitadel.  
@@ -325,6 +327,7 @@ accessauditlog
 11. Related Documents
 - `Security white paper.md`
 - `Wazuh.md`
+- `Zitadel_Deployment.md`
 
 ---
 
