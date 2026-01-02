@@ -25,7 +25,7 @@
 
 Технические источники
 - Prometheus (метрики сервисов)  
-- Wazuh (security alerts)  
+- Wazuh (security alerts, см. `Wazuh.md`)
 - Cloudflare (WAF, Worker, Traffic, Errors)  
 - Tailscale (узлы, ACL, трафик)  
 - Vault (health, seal status)  
@@ -165,7 +165,7 @@ GET /alerts
 - Ads Collector  
 - Billing Collector  
 - Prometheus Collector  
-- Wazuh Collector  
+- Wazuh Collector (см. `Wazuh.md`)
 - Cloudflare Collector  
 - Router Collector  
 - RAG Collector  
@@ -223,7 +223,7 @@ GET /alerts
 - маржинальность  
 
 5.4. Security
-- Wazuh alerts  
+- Wazuh alerts (см. `Wazuh.md`)
 - AI‑WAF blocks  
 - SQL/XSS attempts  
 - jailbreak attempts  
@@ -264,7 +264,7 @@ GET /alerts
 - API‑ключи  
 - OAuth2 для GA/Ads  
 - шифрование секретов в Vault  
-- логирование в Wazuh  
+- логирование в Wazuh (см. `Wazuh.md`)
 - rate limiting  
 
 ---
@@ -284,6 +284,7 @@ GET /alerts
 
 10. Related Documents
 - `Service Discovery Layer.md`
+- `Wazuh.md`
 
 ---
 

@@ -216,7 +216,7 @@ accessauditlog
 
 - Логи доступны:
   - через API  
-  - для экспорта в Wazuh / SIEM  
+  - для экспорта в Wazuh / SIEM (см. `Wazuh.md`)
 
 ---
 
@@ -304,7 +304,7 @@ accessauditlog
 - Все запросы — по HTTPS.  
 - JWT — только от Zitadel, с проверкой подписи и audience.  
 - RLS в Supabase для защиты таблиц.  
-- Логи IAM — дублируются в Wazuh.  
+- Логи IAM — дублируются в Wazuh (см. `Wazuh.md`).
 
 ---
 
@@ -324,6 +324,7 @@ accessauditlog
 
 11. Related Documents
 - `Security white paper.md`
+- `Wazuh.md`
 
 ---
 

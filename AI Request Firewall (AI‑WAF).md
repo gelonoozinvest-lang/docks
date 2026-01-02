@@ -85,7 +85,7 @@ Worker должен:
 3. Логирование и мониторинг
 
 3.1. Логи в Wazuh
-Worker отправляет:
+Worker отправляет все события безопасности в Wazuh. См. `Wazuh.md` для получения подробной информации о собираемых данных и правилах.
 
 - IP  
 - User‑Agent  
@@ -234,6 +234,7 @@ return forward(request)
 9. Related Documents
 - `Router AI Agents.md`
 - `Security white paper.md`
+- `Wazuh.md`
 
 ---
 

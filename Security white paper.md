@@ -127,7 +127,7 @@ The platform is segmented into:
 - Blockchain Network  
 - Monitoring & Security Layer (Wazuh + Prometheus)  
 
-Each segment has its own trust boundary and security controls.
+Each segment has its own trust boundary and security controls. For more details on the monitoring layer, see `Wazuh.md`.
 
 ---
 
@@ -236,7 +236,7 @@ Controls grouped by:
 - Vault secrets management  
 
 10.2 Detective Controls
-- Wazuh SIEM  
+- Wazuh SIEM (see `Wazuh.md` for details)
 - Prometheus alerts  
 - FIM (File Integrity Monitoring)  
 - Behavioral anomaly detection in the Anti-Scraping Worker
@@ -261,7 +261,7 @@ Includes:
 - recovery  
 - post‑incident review  
 
-Wazuh + Prometheus + Cloudflare logs form the detection backbone.
+Wazuh + Prometheus + Cloudflare logs form the detection backbone. See `Wazuh.md` for a detailed specification of the monitoring setup.
 
 ---
 
