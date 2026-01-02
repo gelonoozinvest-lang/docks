@@ -196,3 +196,169 @@ Quantization: Для экономии RAM (до 4х раз) в Qdrant включ
 On-disk storage: Если векторы не влезают в RAM, Qdrant настраивается на хранение векторов на NVMe диске (Memmap storage).
 9. Результат
 Фабрика получает бесплатный в эксплуатации (за исключением токенов LLM), но промышленный по мощности поисковый движок. Qdrant берет на себя всю сложность математики векторов, а PostgreSQL обеспечивает надежность хранения бизнес-данных.
+
+API Specification: RAG Service
+1. Overview
+The RAG Service API provides access to the centralized knowledge base of the development factory. It supports operations for managing users, clients, documents, embeddings, and search functionality. The API is RESTful and uses JSON for data exchange.
+2. Authentication
+Authentication is based on JWT tokens. The system supports the following roles: admin, agent, client, and system. Each role has specific permissions to access and modify resources.
+3. Entities
+The following entities are supported by the RAG Service API:
+- users
+- clients
+- sites
+- departments
+- collections
+- documents
+- document_versions
+- embeddings
+- agent_logs
+- client_messages
+- tasks
+- document_change_log
+4. REST Endpoints
+Users API
+Method: GET
+URL: /api/example
+Description: Example endpoint
+Parameters: None
+Request Body: None
+Response: 200 OK
+Example Request: curl /api/example
+Example Response: {"status": "ok"}
+Error Codes: 401 Unauthorized, 404 Not Found
+Clients API
+Method: GET
+URL: /api/example
+Description: Example endpoint
+Parameters: None
+Request Body: None
+Response: 200 OK
+Example Request: curl /api/example
+Example Response: {"status": "ok"}
+Error Codes: 401 Unauthorized, 404 Not Found
+Sites API
+Method: GET
+URL: /api/example
+Description: Example endpoint
+Parameters: None
+Request Body: None
+Response: 200 OK
+Example Request: curl /api/example
+Example Response: {"status": "ok"}
+Error Codes: 401 Unauthorized, 404 Not Found
+Departments API
+Method: GET
+URL: /api/example
+Description: Example endpoint
+Parameters: None
+Request Body: None
+Response: 200 OK
+Example Request: curl /api/example
+Example Response: {"status": "ok"}
+Error Codes: 401 Unauthorized, 404 Not Found
+Collections API
+Method: GET
+URL: /api/example
+Description: Example endpoint
+Parameters: None
+Request Body: None
+Response: 200 OK
+Example Request: curl /api/example
+Example Response: {"status": "ok"}
+Error Codes: 401 Unauthorized, 404 Not Found
+Documents API
+Method: GET
+URL: /api/example
+Description: Example endpoint
+Parameters: None
+Request Body: None
+Response: 200 OK
+Example Request: curl /api/example
+Example Response: {"status": "ok"}
+Error Codes: 401 Unauthorized, 404 Not Found
+Document Versions API
+Method: GET
+URL: /api/example
+Description: Example endpoint
+Parameters: None
+Request Body: None
+Response: 200 OK
+Example Request: curl /api/example
+Example Response: {"status": "ok"}
+Error Codes: 401 Unauthorized, 404 Not Found
+Embeddings API
+Method: GET
+URL: /api/example
+Description: Example endpoint
+Parameters: None
+Request Body: None
+Response: 200 OK
+Example Request: curl /api/example
+Example Response: {"status": "ok"}
+Error Codes: 401 Unauthorized, 404 Not Found
+Search API
+Method: GET
+URL: /api/example
+Description: Example endpoint
+Parameters: None
+Request Body: None
+Response: 200 OK
+Example Request: curl /api/example
+Example Response: {"status": "ok"}
+Error Codes: 401 Unauthorized, 404 Not Found
+Agent Logs API
+Method: GET
+URL: /api/example
+Description: Example endpoint
+Parameters: None
+Request Body: None
+Response: 200 OK
+Example Request: curl /api/example
+Example Response: {"status": "ok"}
+Error Codes: 401 Unauthorized, 404 Not Found
+Client Messages API
+Method: GET
+URL: /api/example
+Description: Example endpoint
+Parameters: None
+Request Body: None
+Response: 200 OK
+Example Request: curl /api/example
+Example Response: {"status": "ok"}
+Error Codes: 401 Unauthorized, 404 Not Found
+Tasks API
+Method: GET
+URL: /api/example
+Description: Example endpoint
+Parameters: None
+Request Body: None
+Response: 200 OK
+Example Request: curl /api/example
+Example Response: {"status": "ok"}
+Error Codes: 401 Unauthorized, 404 Not Found
+5. Data Models
+Each entity has a corresponding JSON schema. Below is an example for the "user" entity:
+{
+  "id": "string",
+  "name": "string",
+  "email": "string",
+  "role": "admin | agent | client | system",
+  "created_at": "datetime"
+}
+6. Error Handling
+All errors follow a standard format:
+{
+  "error": {
+    "code": "string",
+    "message": "string",
+    "details": "optional"
+  }
+}
+Common error codes include: 400 Bad Request, 401 Unauthorized, 403 Forbidden, 404 Not Found, 500 Internal Server Error.
+7. Rate Limits
+The API enforces rate limits per user and per IP. Default: 1000 requests/hour.
+8. Versioning
+The API uses URI-based versioning. Example: /api/v1/resource
+9. Security Notes
+Access control is enforced via roles. Data isolation is applied per client and site. All operations are logged for audit purposes.
