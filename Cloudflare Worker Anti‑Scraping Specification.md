@@ -80,11 +80,9 @@ if isSuspiciousHeaders(request): return softBlock()
 if isRateLimitExceeded(ip): return hardBlock()
 if isBotBehavior(request): return challenge()
 return fetch(request)
-8. References to Related Documents
-- Network & Security Architecture for the Business Factory
-- RAG Service Technical Specification
-- API Layer Specification
-- Agent Context Search Specification
-- Wazuh Logging & Security Policy
+8. Related Documents
+- `Security white paper.md`
+- `RAG‑сервис.md`
+- `Agent Context Search Specification.md`
 9. Summary
 This Worker provides a robust anti‑scraping layer for the Business Factory. It integrates seamlessly with Cloudflare, Tailscale, Wazuh, and Prometheus while maintaining compliance‑ready logging and zero‑trust principles.

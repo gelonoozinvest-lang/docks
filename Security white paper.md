@@ -116,7 +116,13 @@ The platform is segmented into:
 
 - Cloudflare Perimeter Layer  
 - Anti‑Scraping Worker Layer  
-- Factory Core (Tailscale Mesh)  
+- Factory Core (Tailscale Mesh)
+  - Router AI Agents
+  - RAG Service
+  - n8n Workflows
+  - Identity & Access Layer (IAM)
+  - Vault Namespace
+  - Factory Health Aggregator
 - Payments Network (WireGuard/OpenVPN)  
 - Blockchain Network  
 - Monitoring & Security Layer (Wazuh + Prometheus)  
@@ -171,6 +177,8 @@ Adds:
 - deception elements (honeypots, fake endpoints)  
 - ML‑based anomaly scoring (optional future module)
 
+For more details, see the `AI Request Firewall (AI‑WAF).md` document.
+
 ---
 
 8. Threat Modeling (STRIDE) — Expanded
@@ -206,11 +214,11 @@ Expands each control with:
 Example:
 
 A.9 Access Control
-- Zero‑Trust enforced via Cloudflare Access  
-- MFA required for all privileged roles  
-- Tailscale ACL defines service‑to‑service access  
-- VPN required for Payments/Blockchain  
-- Evidence: Access logs, ACL configs, VPN logs  
+- Zero‑Trust enforced via Cloudflare Access and the IAM service.
+- MFA required for all privileged roles, enforced by the IAM service.
+- Tailscale ACL defines service‑to‑service access.
+- VPN required for Payments/Blockchain.
+- Evidence: Access logs from the IAM service, ACL configs, VPN logs.
 
 ---
 
@@ -221,7 +229,8 @@ Controls grouped by:
 10.1 Preventive Controls
 - Cloudflare WAF  
 - Anti‑Scraping Worker  
-- Zero‑Trust Access  
+- AI Request Firewall (AI-WAF)
+- Zero‑Trust Access (IAM service)
 - VPN segmentation  
 - Tailscale ACL  
 - Vault secrets management  
@@ -230,13 +239,14 @@ Controls grouped by:
 - Wazuh SIEM  
 - Prometheus alerts  
 - FIM (File Integrity Monitoring)  
-- Behavioral anomaly detection  
+- Behavioral anomaly detection in the Anti-Scraping Worker
+- Audit logs from the IAM service
 
 10.3 Corrective Controls
-- Automated blocking  
+- Automated blocking by the WAF and Anti-Scraping Worker
 - Incident response playbooks  
-- Key rotation  
-- Access revocation  
+- Key rotation in Vault
+- Access revocation via the IAM service
 
 ---
 

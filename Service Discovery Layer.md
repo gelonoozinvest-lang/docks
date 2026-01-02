@@ -292,6 +292,13 @@ Router → IAM → SDL → Service
 
 ---
 
+10. Related Documents
+- `Router AI Agents.md`
+- `Identity & Access Layer (IAM).md`
+- `Factory Health Aggregator Service.md`
+
+---
+
 Если хочешь, я могу следующим шагом:
 
 - собрать это ТЗ в Pages как официальный документ  

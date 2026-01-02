@@ -113,6 +113,16 @@ CREATE TABLE client_messages (
     direction VARCHAR(10),
     timestamp TIMESTAMP DEFAULT NOW()
 );
+
+CREATE TABLE document_change_log (
+    id SERIAL PRIMARY KEY,
+    document_id UUID REFERENCES documents(id),
+    version_id INT REFERENCES document_versions(id),
+    change_type VARCHAR(50), -- 'created', 'updated', 'deleted'
+    changed_by_user_id UUID REFERENCES users(id),
+    timestamp TIMESTAMP DEFAULT NOW(),
+    details JSONB
+);
 3.2. Векторная модель (Qdrant Collections)
 В Qdrant создается одна (или несколько) коллекций. Рекомендуется одна коллекция factory_knowledge с использованием Payload Filtering для разделения по сайтам/отделам.
 
@@ -175,6 +185,8 @@ Qdrant Search Query:
 JWT: Стандартный токен.
 Qdrant Security: Qdrant находится внутри закрытого контура (Private Network). Доступ к нему имеет только API Layer. Прямой доступ из интернета закрыт.
 API Key Management: API сервис управляет ключами доступа к коллекциям. При запросе пользователя API подставляет соответствующие filter в запрос к Qdrant (например, принудительный фильтр по department_id).
+
+См. `Identity & Access Layer (IAM).md` для получения дополнительной информации об аутентификации и авторизации.
 7. API Спецификация (REST)
 7.1. Search API (Main)
 POST /search
@@ -201,7 +213,7 @@ API Specification: RAG Service
 1. Overview
 The RAG Service API provides access to the centralized knowledge base of the development factory. It supports operations for managing users, clients, documents, embeddings, and search functionality. The API is RESTful and uses JSON for data exchange.
 2. Authentication
-Authentication is based on JWT tokens. The system supports the following roles: admin, agent, client, and system. Each role has specific permissions to access and modify resources.
+Authentication is based on JWT tokens. The system supports the following roles: admin, agent, client, and system. Each role has specific permissions to access and modify resources. See `Identity & Access Layer (IAM).md` for more details.
 3. Entities
 The following entities are supported by the RAG Service API:
 - users
@@ -219,124 +231,107 @@ The following entities are supported by the RAG Service API:
 4. REST Endpoints
 Users API
 Method: GET
-URL: /api/example
-Description: Example endpoint
-Parameters: None
-Request Body: None
-Response: 200 OK
-Example Request: curl /api/example
-Example Response: {"status": "ok"}
-Error Codes: 401 Unauthorized, 404 Not Found
+URL: /api/v1/users
+Description: Get a list of users.
+---
+Method: GET
+URL: /api/v1/users/{id}
+Description: Get a specific user.
+---
+Method: POST
+URL: /api/v1/users
+Description: Create a new user.
+---
+Method: PUT
+URL: /api/v1/users/{id}
+Description: Update a user.
+---
+Method: DELETE
+URL: /api/v1/users/{id}
+Description: Delete a user.
+
 Clients API
 Method: GET
-URL: /api/example
-Description: Example endpoint
-Parameters: None
-Request Body: None
-Response: 200 OK
-Example Request: curl /api/example
-Example Response: {"status": "ok"}
-Error Codes: 401 Unauthorized, 404 Not Found
+URL: /api/v1/clients
+Description: Get a list of clients.
+---
+Method: GET
+URL: /api/v1/clients/{id}
+Description: Get a specific client.
+
 Sites API
 Method: GET
-URL: /api/example
-Description: Example endpoint
-Parameters: None
-Request Body: None
-Response: 200 OK
-Example Request: curl /api/example
-Example Response: {"status": "ok"}
-Error Codes: 401 Unauthorized, 404 Not Found
+URL: /api/v1/sites
+Description: Get a list of sites.
+
 Departments API
 Method: GET
-URL: /api/example
-Description: Example endpoint
-Parameters: None
-Request Body: None
-Response: 200 OK
-Example Request: curl /api/example
-Example Response: {"status": "ok"}
-Error Codes: 401 Unauthorized, 404 Not Found
+URL: /api/v1/departments
+Description: Get a list of departments.
+
 Collections API
 Method: GET
-URL: /api/example
-Description: Example endpoint
-Parameters: None
-Request Body: None
-Response: 200 OK
-Example Request: curl /api/example
-Example Response: {"status": "ok"}
-Error Codes: 401 Unauthorized, 404 Not Found
+URL: /api/v1/collections
+Description: Get a list of collections.
+---
+Method: POST
+URL: /api/v1/collections
+Description: Create a new collection.
+
 Documents API
 Method: GET
-URL: /api/example
-Description: Example endpoint
-Parameters: None
-Request Body: None
-Response: 200 OK
-Example Request: curl /api/example
-Example Response: {"status": "ok"}
-Error Codes: 401 Unauthorized, 404 Not Found
+URL: /api/v1/documents
+Description: Get a list of documents.
+---
+Method: POST
+URL: /api/v1/documents
+Description: Create a new document.
+
 Document Versions API
 Method: GET
-URL: /api/example
-Description: Example endpoint
-Parameters: None
-Request Body: None
-Response: 200 OK
-Example Request: curl /api/example
-Example Response: {"status": "ok"}
-Error Codes: 401 Unauthorized, 404 Not Found
+URL: /api/v1/documents/{document_id}/versions
+Description: Get all versions of a document.
+---
+Method: GET
+URL: /api/v1/documents/{document_id}/versions/{version_id}
+Description: Get a specific version of a document.
+
 Embeddings API
-Method: GET
-URL: /api/example
-Description: Example endpoint
-Parameters: None
-Request Body: None
-Response: 200 OK
-Example Request: curl /api/example
-Example Response: {"status": "ok"}
-Error Codes: 401 Unauthorized, 404 Not Found
+Method: POST
+URL: /api/v1/embeddings/search
+Description: Search for embeddings in Qdrant.
+Request Body: { "vector": [0.1, ...], "limit": 5, "filter": { "must": [{ "key": "site_id", "match": { "value": 1 } }] } }
+
 Search API
-Method: GET
-URL: /api/example
-Description: Example endpoint
-Parameters: None
-Request Body: None
-Response: 200 OK
-Example Request: curl /api/example
-Example Response: {"status": "ok"}
-Error Codes: 401 Unauthorized, 404 Not Found
+Method: POST
+URL: /api/v1/search
+Description: Perform a RAG search.
+Request Body: { "query": "текст", "filters": {"site_id": 1}, "limit": 5 }
+
 Agent Logs API
 Method: GET
-URL: /api/example
-Description: Example endpoint
-Parameters: None
-Request Body: None
-Response: 200 OK
-Example Request: curl /api/example
-Example Response: {"status": "ok"}
-Error Codes: 401 Unauthorized, 404 Not Found
+URL: /api/v1/agent_logs
+Description: Get a list of agent logs.
+
 Client Messages API
 Method: GET
-URL: /api/example
-Description: Example endpoint
-Parameters: None
-Request Body: None
-Response: 200 OK
-Example Request: curl /api/example
-Example Response: {"status": "ok"}
-Error Codes: 401 Unauthorized, 404 Not Found
+URL: /api/v1/client_messages
+Description: Get a list of client messages.
+
 Tasks API
 Method: GET
-URL: /api/example
-Description: Example endpoint
-Parameters: None
-Request Body: None
-Response: 200 OK
-Example Request: curl /api/example
-Example Response: {"status": "ok"}
-Error Codes: 401 Unauthorized, 404 Not Found
+URL: /api/v1/tasks
+Description: Get a list of tasks.
+---
+Method: POST
+URL: /api/v1/tasks
+Description: Create a new task.
+
+Document Change Log API
+Method: GET
+URL: /api/v1/document_change_log
+Description: Get a list of document change logs.
+
 5. Data Models
 Each entity has a corresponding JSON schema. Below is an example for the "user" entity:
 {
@@ -362,3 +357,7 @@ The API enforces rate limits per user and per IP. Default: 1000 requests/hour.
 The API uses URI-based versioning. Example: /api/v1/resource
 9. Security Notes
 Access control is enforced via roles. Data isolation is applied per client and site. All operations are logged for audit purposes.
+10. Related Documents
+- `Router AI Agents.md`
+- `Identity & Access Layer (IAM).md`
+- `Agent Context Search Specification.md`

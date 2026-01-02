@@ -205,5 +205,5 @@ client_12345_github_token
 Код
 kv/data/github_token
 
-
-
+11. Related Documents
+- `Module Design Specification.md`

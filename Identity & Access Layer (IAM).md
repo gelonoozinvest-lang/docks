@@ -322,6 +322,11 @@ accessauditlog
 
 ---
 
+11. Related Documents
+- `Security white paper.md`
+
+---
+
 Если хочешь, я могу следующим шагом:
 
 - собрать это ТЗ в Pages как отдельный документ;  

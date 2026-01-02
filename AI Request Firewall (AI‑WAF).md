@@ -231,6 +231,12 @@ return forward(request)
 
 ---
 
+9. Related Documents
+- `Router AI Agents.md`
+- `Security white paper.md`
+
+---
+
 Если хочешь, я могу:
 
 ✔ собрать это в Pages как официальный документ

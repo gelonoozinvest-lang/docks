@@ -282,6 +282,11 @@ GET /alerts
 
 ---
 
+10. Related Documents
+- `Service Discovery Layer.md`
+
+---
+
 Если хочешь, я могу:
 
 ✔ собрать это ТЗ в Pages
